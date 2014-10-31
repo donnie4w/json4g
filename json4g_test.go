@@ -12,7 +12,7 @@ import (
 func Test(t *testing.T) {
 	jsonStr := `{"STRING": "abcd","NUMBER":123456,"BOOL": false,"STRUCT":{"a":{"b":12345}},"array":["a","b","c"]}`
 	node, err := LoadByString(jsonStr)
-	fmt.Println(">>>>>>>>>>>>>", node)
+
 	if err == nil {
 		jnode := node.GetNodeByPath("STRUCT.a.b")
 		fmt.Println("STRUCT.a.b>>>>>>>", jnode.ValueNumber)
@@ -59,6 +59,7 @@ func TestGetNode2(t *testing.T) {
 		jnode := node.GetNodeByPath("STRUCT.a.b")
 		fmt.Println("STRUCT.a.b>>>>>>>", jnode.ValueNumber)
 	}
+	fmt.Println("node.AddNode>>>>>>>", node.ToString())
 }
 
 //增加节点
@@ -72,7 +73,7 @@ func TestAddNode(t *testing.T) {
 	root, _ := LoadByString(str)
 	addnodeString := new(JsonNode)
 	addnodeString.Name = "newNodeNameString"
-	addnodeString.SetValue("newNodeValue")
+	addnodeString.SetValue("newNodeValue") // 注意，对象值必须通过SetValue()设置
 	root.AddNode(addnodeString)
 	addnodeNumber := new(JsonNode)
 	addnodeNumber.Name = "newNodeNameNumber"
@@ -109,10 +110,10 @@ func TestNewNode(t *testing.T) {
 	newnode2 := NowJsonNode("name2", "value2")
 	jsonroot.AddNode(newnode2)
 	fmt.Println("newnode2>>>>>", jsonroot.ToString())
-	newnode3 := NowJsonNodeByString(`{"node":123456,"node2":"abcd"}`)
+	newnode3 := NowJsonNodeByString("name3", `{"node":123456,"node2":"abcd"}`)
 	jsonroot.AddNode(newnode3)
 	fmt.Println("newnode3>>>>>", jsonroot.ToString())
-	newnodeerr := NowJsonNodeByString(`{"node":123456,"node2":"abcd" json error format}`)
+	newnodeerr := NowJsonNodeByString("name4", `{"node":123456,"node2":"abcd" json error format}`)
 	fmt.Println("newnodeerr>>>>", newnodeerr)
 	err := jsonroot.AddNode(newnodeerr)
 	fmt.Println("err>>>>>>>>", err)

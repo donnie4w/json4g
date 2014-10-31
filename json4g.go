@@ -39,8 +39,14 @@ type JsonNode struct {
 	NType        NODETYPE
 }
 
-func NowJsonNodeByString(jsonstr string) (json *JsonNode) {
+func NowJsonNodeByString(nodename, jsonstr string) (json *JsonNode) {
+	defer func() {
+		if er := recover(); er != nil {
+			fmt.Sprint("NowJsonNodeByString error ", er)
+		}
+	}()
 	json, _ = LoadByString(jsonstr)
+	json.Name = nodename
 	return
 }
 
@@ -427,8 +433,12 @@ func _toString(n *JsonNode) (s string) {
 		}
 		s = fmt.Sprint(s, "]")
 	case STRINGARRAY:
-		s = fmt.Sprint(s, "\"", n.Name, "\":[")
-		for i, v := range n.ArraysNumber {
+		if n.Name != "" {
+			s = fmt.Sprint(s, "\"", n.Name, "\":[")
+		} else {
+			s = fmt.Sprint(s, "[")
+		}
+		for i, v := range n.ArraysString {
 			if i < len(n.ArraysString)-1 {
 				s = fmt.Sprint(s, "\"", v, "\"", ",")
 			} else {
@@ -437,8 +447,12 @@ func _toString(n *JsonNode) (s string) {
 		}
 		s = fmt.Sprint(s, "]")
 	case BOOLARRAY:
-		s = fmt.Sprint(s, "\"", n.Name, "\":[")
-		for i, v := range n.ArraysNumber {
+		if n.Name != "" {
+			s = fmt.Sprint(s, "\"", n.Name, "\":[")
+		} else {
+			s = fmt.Sprint(s, "[")
+		}
+		for i, v := range n.ArraysBool {
 			if i < len(n.ArraysBool)-1 {
 				s = fmt.Sprint(s, v, ",")
 			} else {
