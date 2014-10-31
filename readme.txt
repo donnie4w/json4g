@@ -1,0 +1,14 @@
+golang 的 json处理库
+
+json4g 提供了json的简便出来方法
+
+方法介绍
+1，LoadByString(string)    参数为json字符串，返回 JsonNode 对象指针
+2，NowJsonNode(string,interface{})    参数节点名与值 
+3，NowJsonNodeByString(string)     参数 json字符串 如： {"a":"b","c":123}
+4,AddNode(*JsonNode)     为某节点增加子节点 
+5,DelNode(string)        某节点 删除指定名称子节点
+6，ToJsonNode()          转JsonNode 指针对象
+7，SetValue()            节点设置 节点值，可以为 数字，字符串，bool值，数组
+8，GetNodeByPath(string) 通过路径查询 节点 如： {"a":{"b":{"c":123,"d":true}}} 节点c对象GetNodeByPath("a.b.c")
+9，GetNodeByName(string) 通过节点名 查询 节点对象
