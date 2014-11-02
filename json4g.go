@@ -42,7 +42,7 @@ type JsonNode struct {
 func NowJsonNodeByString(nodename, jsonstr string) (json *JsonNode) {
 	defer func() {
 		if er := recover(); er != nil {
-			fmt.Sprint("NowJsonNodeByString error ", er)
+			fmt.Println("NowJsonNodeByString error ", er)
 		}
 	}()
 	json, _ = LoadByString(jsonstr)
@@ -53,7 +53,7 @@ func NowJsonNodeByString(nodename, jsonstr string) (json *JsonNode) {
 func NowJsonNode(nodename string, nodevalue interface{}) (json *JsonNode) {
 	defer func() {
 		if er := recover(); er != nil {
-			fmt.Sprint("NowJsonNode error ", er)
+			fmt.Println("NowJsonNode error ", er)
 		}
 	}()
 	json = new(JsonNode)
