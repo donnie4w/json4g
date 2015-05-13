@@ -144,7 +144,7 @@ func TestToString(t *testing.T) {
 	}
 }
 
-// GetChildNames 或者直接下级各个子节点的名称
+// GetChildNames 获取直接下级各个子节点的名称
 func TestGetChildNames(t *testing.T) {
 	str := `{"root":{
     "structnodes": [
