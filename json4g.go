@@ -464,6 +464,18 @@ func _toString(n *JsonNode) (s string) {
 	return
 }
 
+func (n *JsonNode) GetChildNames() (names []string) {
+	if n.StructNodes != nil && len(n.StructNodes) > 0 {
+		names = make([]string, len(n.StructNodes))
+		i := 0
+		for k, _ := range n.StructNodes {
+			names[i] = k
+			i++
+		}
+	}
+	return
+}
+
 func isTypeStruct(value interface{}) bool {
 	switch value.(type) {
 	case map[string]interface{}:
@@ -486,6 +498,7 @@ func praseStruct(dat map[string]interface{}, superNode *JsonNode) {
 	}
 }
 
+//根据路径查询子节点  如：a.b  b节点为a节点的子节点
 func (n *JsonNode) GetNodeByPath(path string) (node *JsonNode) {
 	defer func() {
 		if er := recover(); er != nil {
@@ -501,6 +514,7 @@ func (n *JsonNode) GetNodeByPath(path string) (node *JsonNode) {
 	return
 }
 
+//根据节点名字查询
 func (n *JsonNode) GetNodeByName(name string) *JsonNode {
 	defer func() {
 		if er := recover(); er != nil {

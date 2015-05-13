@@ -122,19 +122,45 @@ func TestNewNode(t *testing.T) {
 
 //对象转字符串
 func TestToString(t *testing.T) {
-	str := `{
+	str := `{"root":{
     "structnodes": [
 		{ "node1":"abcd1" , "node2":"abcd2" },
 		{ "node3":"abcd3" , "node4":"abcd4" }
 		],
 	 "delNode":"wuxiaodong",
 	  "array":[123,"aabc",{"node1":"abcd1","node2":"abcd2"}]		
-	}`
+	}}`
 	root, err := LoadByString(str)
+	dats := root.StructNodes
+	for k, _ := range dats {
+		fmt.Println("name:", k)
+	}
+
 	root, err = LoadByString(root.ToString())
 	if err == nil {
 		fmt.Println("TestToString>>>>>>>>", root.ToString())
 	} else {
 		fmt.Println("TestToString>>>>>>>>", err)
 	}
+}
+
+// GetChildNames 或者直接下级各个子节点的名称
+func TestGetChildNames(t *testing.T) {
+	str := `{"root":{
+    "structnodes": [
+		{ "node1":"abcd1" , "node2":"abcd2" },
+		{ "node3":"abcd3" , "node4":"abcd4" }
+		],
+	 "delNode":"wuxiaodong",
+	  "array":[123,"aabc",{"node1":"abcd1","node2":"abcd2"}]		
+	}}`
+	root, err := LoadByString(str)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	names := root.GetChildNames()
+	for _, v := range names {
+		fmt.Println("name:", v)
+	}
+
 }

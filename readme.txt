@@ -1,5 +1,5 @@
 golang 的 json处理库
-json4g 提供了json的简便出来方法
+json4g 提供了json的简便处理方法
 
 方法介绍
 1，LoadByString(string)    参数为json字符串，返回 JsonNode 对象指针
