@@ -409,15 +409,15 @@ func _toString(n *JsonNode) (s string) {
 		}
 	case NUMBER:
 		if n.Name != "" {
-			s = fmt.Sprint(s, "\"", n.Name, "\":", "\"", n.ValueNumber, "\"")
+			s = fmt.Sprint(s, "\"", n.Name, "\":", "", n.ValueNumber, "")
 		} else {
-			s = fmt.Sprint(s, "\"", n.ValueNumber, "\"")
+			s = fmt.Sprint(s, "", n.ValueNumber, "")
 		}
 	case BOOL:
 		if n.Name != "" {
-			s = fmt.Sprint(s, "\"", n.Name, "\":", "\"", n.ValueBool, "\"")
+			s = fmt.Sprint(s, "\"", n.Name, "\":", "", n.ValueBool, "")
 		} else {
-			s = fmt.Sprint(s, "\"", n.ValueBool, "\"")
+			s = fmt.Sprint(s, "", n.ValueBool, "")
 		}
 	case STRUCTARRAY:
 		if n.Name != "" {
@@ -474,6 +474,14 @@ func (n *JsonNode) GetChildNames() (names []string) {
 		}
 	}
 	return
+}
+
+func (n *JsonNode) IsExist(path string) bool {
+	if n.GetNodeByPath(path) == nil {
+		return false
+	} else {
+		return true
+	}
 }
 
 func isTypeStruct(value interface{}) bool {

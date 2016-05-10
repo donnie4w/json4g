@@ -128,7 +128,7 @@ func TestToString(t *testing.T) {
 		{ "node3":"abcd3" , "node4":"abcd4" }
 		],
 	 "delNode":"wuxiaodong",
-	  "array":[123,"aabc",{"node1":"abcd1","node2":"abcd2"}]		
+	  "array":[123,"aabc",{"node1":"abcd1","node2":123456789011235}]		
 	}}`
 	root, err := LoadByString(str)
 	dats := root.StructNodes
@@ -162,5 +162,6 @@ func TestGetChildNames(t *testing.T) {
 	for _, v := range names {
 		fmt.Println("name:", v)
 	}
-
+	fmt.Println(root.IsExist("root.structnodes"))
+	fmt.Println(root.IsExist("root.structnodes222"))
 }
